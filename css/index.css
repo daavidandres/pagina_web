@@ -59,3 +59,11 @@ a{
     padding: .5rem;
     text-decoration: none;
 }
+.error{
+    background-color: rgb(236, 122, 122);
+    color:black;
+    padding: 10px;
+    width: 95%;
+    border-radius: 5px;
+    margin: 20px auto;
+}

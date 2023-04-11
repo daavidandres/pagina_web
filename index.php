@@ -13,9 +13,20 @@
     <form action="IniciarSesion.php" method="POST">
         <h1>INICIAR SESIÓN</h1>
         <hr>
+        <?php
+            if (isset($_GET['error'])){
+            ?>
+            <p class="error">
+                <?php
+                echo $_GET['error']
+                ?>
+            </p>
+        <?php
+            }
+        ?>
         <i class="fa-solid fa-user"></i>
-        <label>Email</label>
-        <input type="text" name="Email" placeholder="Email">
+        <label>Usuario</label>
+        <input type="text" name="Usuario" placeholder="Usuario">
 
         <i class="fa-solid fa-unlock"></i>
         <label>Contraseña</label>
