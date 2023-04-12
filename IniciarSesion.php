@@ -1,8 +1,8 @@
-<?php
+<?php   
     session_start();
-    include('conexion.php');
+    include('Conexion.php');
 
-if (isset($_POST["Usuario"]) && isset($_POST["Contraseña"])){
+    if (isset($_POST['Usuario']) && isset($_POST['Contraseña']) ) {
 
     function validate($data){
         $data = trim($data);
@@ -11,38 +11,46 @@ if (isset($_POST["Usuario"]) && isset($_POST["Contraseña"])){
         return $data;
     }
 
-    $Usuario = validate($_POST["Usuario"]);
-    $Contraseña = validate($_POST["Contraseña"]);
+    $Usuario = validate($_POST['Usuario']); 
+    $Contraseña = validate($_POST['Contraseña']);
 
-    if (empty($Usuario)){
-        header("Location: index.php?error=El usuario es requerido");
+    if (empty($Usuario)) {
+        header("Location: Index.php?error=El Usuario Es Requerido");
         exit();
-    }elseif (empty($Contraseña)){
-        header("Location: index.php?error=La contraseña es requerida");
+    }elseif (empty($Contraseña)) {
+        header("Location: Index.php?error=La Contraseña Es Requerida");
         exit();
     }else{
-        /* Encriptación de la contraseña */
-        $Contraseña = md5($Contraseña);
-        $SQL = "SELECT * FROM usuarios WHERE Usuario = '$Usuario' AND Contraseña ='$Contraseña'";
-        $result = mysqli_query($conexion, $SQL);
 
-        if (mysqli_num_rows($result) === 1){
-            $row =  mysqli_fetch_assoc($result);
-            if ($row['Usuario'] === $Usuario && $row['Contraseña'] === $Contraseña){
-                $_SESSION['Usuario'] =  $row['Usuario'];
+        // $Contraseña = md5($Contraseña);
+
+        $Sql = "SELECT * FROM Usuario WHERE Usuario = '$Usuario' AND Contrasena='$Contraseña'";
+        $consulta = odbc_exec($conexion, $Sql);
+        $datos = odbc_fetch_object($consulta);
+        $Sql = "SELECT COUNT(*) as count_rows
+                FROM Usuario WHERE Usuario = 'Usuario' AND Contrasena='$Contraseña'";
+        $cuenta = odbc_exec($conexion, $Sql);
+
+        if ($cuenta === 1) {
+            $row = $datos;
+            if ($row['Usuario'] === $Usuario && $row['Contraseña'] === $Contraseña) {
+                $_SESSION['Usuario'] = $row['Usuario'];
+                $_SESSION['Nombre_Completo'] = $row['Nombre_Completo'];
                 $_SESSION['Id'] = $row['Id'];
                 header("Location: Inicio.php");
                 exit();
-            }else{
-                header("Location: index.php?error=El usuario o la clave son incorrectas");
+            }else {
+                header("Location: Index.php?error=El usuario o la Contraseña son incorrectas");
                 exit();
             }
-        }else{
-            header("Location: index.php?error=El usuario o la clave son incorrectas");
-                exit();
+
+        }else {
+            header("Location: Index.php?error=El usuario o la Contraseña son incorrectas");
+            exit();
         }
     }
-}else{
+
+} else {
     header("Location: index.php");
-    exit();
+            exit();
 }

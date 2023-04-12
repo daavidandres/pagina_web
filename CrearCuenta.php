@@ -10,20 +10,9 @@
     <title>Iniciar sesión</title>
 </head>
 <body>
-    <form action="IniciarSesion.php" method="POST">
-        <h1>INICIAR SESIÓN</h1>
+    <form action="">
+        <h1>Crear Cuenta</h1>
         <hr>
-        <?php
-            if (isset($_GET['error'])){
-            ?>
-            <p class="error">
-                <?php
-                echo $_GET['error']
-                ?>
-            </p>
-        <?php
-            }
-        ?>
         <i class="fa-solid fa-user"></i>
         <label>Email</label>
         <input type="text" name="Usuario" placeholder="Email">
@@ -31,9 +20,12 @@
         <i class="fa-solid fa-unlock"></i>
         <label>Contraseña</label>
         <input type="password" name="Contraseña" placeholder="Contraseña">
+        <i class="fa-solid fa-unlock"></i>
+        <label>Repetir Contraseña</label>
+        <input type="password" name="RContraseña" placeholder="Repetir Contraseña">
         <hr>
-        <button type="submit">Iniciar Sesión</button>
-        <a href="CrearCuenta.php">Crear Cuenta</a>
+        <button type="submit">Crear Cuenta</button>
+        <a href="IniciarSesion.php">Iniciar Sesión</a>
     </form>
 </body>
 </html>
