@@ -1,13 +1,14 @@
-<?php/*
-// recordar la variable de sesion
+<?php
 session_start();
-include 'IniciarSesion.php';
-// validar que se cree una variable de sesion al iniciar sesion
-
-if(!isset($_POST[Usuario])){
-    header("Location: index.php");
-}*/
+//var_dump($_SESSION);
+//echo "<br>Usuario: " . $_SESSION['Usuario'] . "<br>";
+//echo "Estado de sesión: " . $_SESSION['status'] . "<br>";
+if (!isset($_SESSION['Usuario'])) {
+    header('Location: Index.php');
+    exit();
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -24,11 +25,11 @@ if(!isset($_POST[Usuario])){
     </center>
 
 <div class="container py-4">
-    <h3>Bienvenido al Sistema</h3>
-    <div class="row text-center col-sm-12 col-nd-12 col-lg-12 py-4">
+    <h3>Bienvenido, <?php echo $_SESSION['Nombre']; ?></h3>
+    <div class="row text-center col-sm-12 col-nd-12 col-lg-12 py-4" id="barra-navegacion">
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a href="#" class="nav-link active">Ausencias</a>
+                <a href="Ausencias.php" class="nav-link active">Ausencias</a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link active">Observaciones</a>
@@ -36,45 +37,13 @@ if(!isset($_POST[Usuario])){
             <li class="nav-item">
                 <a href="#" class="nav-link active">Cambiar contraseña</a>
             </li>
+            <li class="nav-item">
+            <a href="CerrarSesion.php" class="nav-link active">Cerrar Sesión</a>
+            </li>
         </ul>
     </div>
 </div>
 
-<?php
-
-$connStr = 
-        'odbc:Driver={Microsoft Access Driver (*.mdb, *.accdb)};' .
-        'Dbq=C:\\Users\\sanma\\normal.accdb;';
-
-$dbh = new PDO($connStr);
-$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-$sql = 
-        "SELECT AgentName FROM Agents " .
-        "WHERE ID <> ? AND AgentName <> ?";
-$sth = $dbh->prepare($sql);
-
-// query parameter value(s)
-$params = array(
-        7,
-        'Homer'
-        );
-
-$sth->execute($params);
-?>
-<div class="row text-center col-sm-12 col-nd-12 col-lg-12 py-4">
-    <ul class="nav nav-tabs">
-
-    <?php
-    while ($row = $sth->fetch()) {
-    echo '"'. utf8_encode($row['AgentName']) . '"'. "\r\n";
-    }
-    ?>
-    </ul>
-</div>
-
-<br>
-<a href="CerrarSesion.php" class="btn btn-danger">Cerrar Sesión</a>
 
 
 </body>

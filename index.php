@@ -10,8 +10,14 @@
     <title>Iniciar sesión</title>
 </head>
 <body>
+    
     <form action="IniciarSesion.php" method="POST">
         <h1>INICIAR SESIÓN</h1>
+        <p><?php session_start();
+        if (isset($_SESSION['Usuario'])) {
+            header('Location: Inicio.php');
+            exit();
+        };?></p>
         <hr>
         <?php
             if (isset($_GET['error'])){
