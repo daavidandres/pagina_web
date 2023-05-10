@@ -25,11 +25,11 @@ if (isset($_POST['Usuario']) && isset($_POST['Contraseña'])) {
         exit();
     } else {
 
-        $Sql = "SELECT * FROM Usuario WHERE Usuario = '$Usuario' AND Contrasena = '$Contraseña'";
+        $Sql = "SELECT * FROM Usuarios WHERE Usuario = '$Usuario' AND Contrasena = '$Contraseña'";
         $consulta = odbc_exec($conexion, $Sql);
         $datos = odbc_fetch_object($consulta);
 
-        $Sql = "SELECT COUNT(*) as count_rows FROM Usuario WHERE Usuario = '$Usuario' AND Contrasena = '$Contraseña'";
+        $Sql = "SELECT COUNT(*) as count_rows FROM Usuarios WHERE Usuario = '$Usuario' AND Contrasena = '$Contraseña'";
         $cuenta = odbc_exec($conexion, $Sql);
         $cuenta = odbc_fetch_object($cuenta);
 
